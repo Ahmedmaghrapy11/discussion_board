@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static '../static/css/accounts.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="text-center logo my-4">
+        <a href="{% url 'home_page' %}">Discussion Board</a>
+    </h1>
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="next">{{next}}</input>
+        {% include 'includes/form.html' %}
+        <button type="submit" class="btn btn-primary">Log in</button>
+    </form>
+    <div class="text-muted text-center">
+        Register ? <a href="{% url 'signup' %}">Sign up</a>
+    </div>
+</div>
+{% endblock %}

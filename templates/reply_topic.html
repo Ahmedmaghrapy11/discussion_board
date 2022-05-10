@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{topic.subject}}{% endblock %}
+        
+{% block breadcrumb %}
+        
+    <li class="breadcrumb-item"><a href="{% url 'home_page' %}">Boards</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'boardTopics' topic.board.pk %}">{{topic.board.name}}</a></li>
+    <li class="breadcrumb-item active">{{topic.subject}}</li>
+    <li class="breadcrumb-item active">Post Reply</li>
+{% endblock %}
+
+{% block content %}
+
+    <form method="POST" class="mb-4">
+        {% csrf_token %}
+        {% include 'includes/form.html' %}
+        <button type="submit" class="btn btn-success">Add Reply</button>
+    </form>
+
+    {% for post in topic.posts.all %}
+    
+    <div class="col-10">
+
+        <p>{{post.created_by.username}}</p>
+        <p>{{post.message}}</p>
+        <p>{{post.created_dt}}</p>
+
+        
+        {% endif %}
+
+    </div>
+    {% endfor %}
+
+{% endblock %}

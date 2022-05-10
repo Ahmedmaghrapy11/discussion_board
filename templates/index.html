@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %} Discussion Board {% endblock %}
+    
+    {% block breadcrumb %}
+    <li class="breadcrumb-item active">Boards</li>
+    {% endblock %}
+
+    {% block content %}
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Boards</th>
+                    <th>Posts</th>
+                    <th>Topics</th>
+                    <th>Last Post</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for board in boards %}
+                    <tr>
+                        <td><a href="{% url 'boardTopics' board.pk %}">{{board.name}}</a>
+                            <small class="text-muted d-block">{{board.description}}</small>
+                        </td>
+                        <td>{{board.getPostsCounts}}</td>
+                        <td>{{board.topics.count}}</td>
+                        <td>
+                            {% comment %} {% with post = board.getLastPost %}
+                            {% if post %}
+                                by {{post.created_by.username}} at {{post.created_dt}}
+                            {% else %}
+                                <small>No posts yet</small>
+                            {% endif %}
+                            {% endwith %} {% endcomment %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% endblock %}
